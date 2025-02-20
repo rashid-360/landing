@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 2%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 2%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 157 80% 55%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 4%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 4%;
+    --muted-foreground: 0 0% 70%;
+    --accent: 157 80% 55%;
+    --accent-foreground: 0 0% 0%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 4%;
+    --input: 0 0% 4%;
+    --ring: 157 80% 55%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-black text-foreground; /* Removed text-white */
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-[#37E5A5] px-8 py-3 text-black font-medium rounded-full 
+           transition-all duration-300 hover:scale-105 hover:shadow-[#37E5A5]/20 hover:shadow-lg
+           hover:brightness-110 active:scale-95;
+  }
+  
+  .section {
+    @apply min-h-screen flex items-center justify-center px-4 py-20 relative;
+  }
+  
+  .container {
+    @apply max-w-7xl mx-auto px-4;
+  }
+
+  .card {
+    @apply p-6 rounded-2xl bg-black border border-[#37E5A5]/10
+           transition-all duration-300
+           hover:border-[#37E5A5]/20 hover:shadow-lg hover:shadow-[#37E5A5]/5;
+  }
+
+  .feature-icon {
+    @apply w-12 h-12 mb-6 transition-all duration-300;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#37E5A5] to-[#1cbf84]; /* Fixed gradient */
+  }
+
+  /* Custom inline text color utility */
+  .text-inline {
+    color: var(--foreground) !important; /* Allows inline styles to take effect */
+  }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+/* Fixed Trawayl Logo Gradient */
+.trawayl-logo {
+  background: linear-gradient(135deg, 
+    #37E5A5 0%, 
+    #1cbf84 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+
+.path-animation {
+  stroke-dasharray: 8 8;
+  animation: dash 30s linear infinite;
+}
