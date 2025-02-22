@@ -16,14 +16,36 @@ export function PartnerModal({ isOpen, onClose }: PartnerModalProps) {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      onClose();
-    }, 2000);
+    
+    const requestData = {
+      ...formData,
+      packageType: activeTab === 'package' ? 'Tourist Package' : 'Tourist Vehicle',
+    };
+
+    try {
+      const response = await fetch('https://cloudflare-worker.trexhowl404.workers.dev/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData),
+      });
+
+      if (response.ok) {
+        console.log('Form submitted:', requestData);
+        setIsSubmitted(true);
+        setTimeout(() => {
+          setIsSubmitted(false);
+          onClose();
+        }, 2000);
+      } else {
+        console.error('Failed to submit form:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
